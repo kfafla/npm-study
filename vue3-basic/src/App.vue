@@ -30,7 +30,16 @@
     <!--CustomInput />-->
     <!--ateTimePicker />-->
     <!--DOM />-->
-    <DOM1 />
+    <!--<DOM1 />-->
+    <!--<UserForm />-->
+    <!--UserProfileParent /> -->
+    <!--UserFormParent />-->
+    <!--EmailFormParent />-->
+    <!--DataFetcher />-->
+    <!--CardParent />-->
+    <!--LoginForm />-->
+    <!--ProductList />-->
+    <!--<Datas />-->
   </div>
 </template>
 
@@ -66,4 +75,15 @@ import CustomInput from "./components/CustomInput.vue";
 import DateTimePicker from "./components/DateTimePicker.vue";
 import DOM from "./components/DOM.vue";
 import DOM1 from "./components/DOM1.vue";
+import UserProfile from "./components/UserProfile.vue";
+import UserForm from "./components/UserForm.vue";
+import UserProfileParent from "./components/UserProfileParent.vue";
+import UserFormParent from "./components/UserFormParent.vue";
+import EmailFormParent from "./components/EmailFormParent.vue";
+import EmailForm from "./components/EmailForm.vue";
+import DataFetcher from "./components/DataFetcher.vue";
+import CardParent from "./components/CardParent.vue";
+import LoginForm from "./components/LoginForm.vue";
+import ProductList from "./components/ProductList.vue";
+//import Datas from "./components/Datas.vue";
 </script>
