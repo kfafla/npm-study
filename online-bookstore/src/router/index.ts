@@ -13,47 +13,42 @@ const routes = [
             {
               path:"/home",
               name:"Home",
-              component:() => import("../views/Home.vue"),
+              component:() => import("../views/BookHome.vue"),
             },
             {
-              path:"/articles",
-              name:"ArticleList",
-              component:() => import ("../views/ArticleList.vue"),
+              path:"/books",
+              name:"BookList",
+              component:() => import ("../views/BookList.vue"),
              },
              //动态路由配置
              {
-              path:"/articles/:id",
-              name:"ArticleDetail",
-              component:() => import ("../views/ArticleDetail.vue"),
+              path:"/books/:id",
+              name:"BookDetail",
+              component:() => import ("../views/BookDetail.vue"),
               children:[
                 {
                     path:"comments",
-                    name:"ArticleComments",
-                    component:() => import("../views/ArticleComments.vue"),
-                }, 
-                {
-                  path:"cars",
-                  name:"ArticleCars",
-                  component:() => import("../views/ArticleCars.vue"),
-                }
-              ],
+                    name:"BookComments",
+                    component:() => import("../views/BookComments.vue"),
+                },
+              ]
             },
              //嵌套路由
             {
               path:'/user',
-               component:() => import ("../views/UserDashboard.vue"),
+               component:() => import ("../views/BookUserDashboard.vue"),
               //重定向到个人信息页面，这样保证有默认内容
               redirect:"/user/profile",
               children:[
                 {
                  path:"profile",
                  name:"UserProfile",
-                 component:() => import ("../views/UserProfile.vue"),
+                 component:() => import ("../views/BookUserProfile.vue"),
                },
                {
                 path:"setting",
                 name:"UserSetting",
-                component:() => import ("../views/UserSetting.vue"),
+                component:() => import ("../views/BookUserSetting.vue"),
                },
               ],
             }
@@ -97,3 +92,4 @@ router.beforeEach((to,from,next) =>{
 
 //导出路由对象
 export default router;
+

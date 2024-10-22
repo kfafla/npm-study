@@ -1,25 +1,17 @@
 <template>
-  <div class="article-container">
-    <h2>{{ article.title }}</h2>
+  <div>
+    <h1>{{ article.title }}</h1>
     <img :src="article.image" alt="Book Cover" />
-    <p>{{ article.content }}</p>
-    <router-link :to="`/articles/${article.id}/comments`" class="comment-link"
-      >查看评论</router-link
-    >
-    <router-link :to="`/articles/${article.id}/cars`" tag="button"
-      >加入购物车</router-link
+    <router-link :to="`/articles/${article.id}`" tag="button"
+      >删除书本</router-link
     >
     <router-view> </router-view>
   </div>
 </template>
-
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 const route = useRoute();
-
-//接收到路由中的id参数
 const articleId = route.params.id;
-
 const articleImageUrl1 = "https://xmy-oss.oss-cn-hangzhou.aliyuncs.com/shz.jpg";
 const articleImageUrl = "https://xmy-oss.oss-cn-hangzhou.aliyuncs.com/sgyy.jpg";
 const articles = [
@@ -38,52 +30,5 @@ const articles = [
     image: articleImageUrl1,
   },
 ];
-
-//超找id 为 articleid的文章
 const article = articles.find((a) => a.id === Number(articleId));
 </script>
-<style scoped>
-.article-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-}
-
-.article-container h2 {
-  color: #333;
-  font-size: 24px;
-  margin-bottom: 16px;
-}
-
-.article-container img {
-  width: 100%;
-  height: auto;
-  border-radius: 4px;
-  margin-bottom: 20px;
-}
-
-.article-container p {
-  font-size: 16px;
-  color: #666;
-  line-height: 1.6;
-  margin-bottom: 20px;
-}
-
-.comment-link {
-  display: inline-block;
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 4px;
-  text-decoration: none;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-}
-
-.comment-link:hover {
-  background-color: #0056b3;
-}
-</style>

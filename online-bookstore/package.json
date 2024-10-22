@@ -1,5 +1,5 @@
 {
-  "name": "vue3-router",
+  "name": "online-bookstore",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,8 +10,7 @@
   },
   "dependencies": {
     "vue": "^3.5.10",
-    "vue-router": "^4.4.5",
-    "vuex": "^4.0.2"
+    "vue-router": "^4.4.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.4",
