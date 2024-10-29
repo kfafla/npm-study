@@ -3,6 +3,7 @@
     <router-link to="/counter">计数器</router-link>
     <router-link to="/todo">代办清单</router-link>
     <router-link to="/list">记账</router-link>
+    <router-link to="/login">登录</router-link>
   </nav>
   <router-view />
 </template>

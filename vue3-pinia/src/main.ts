@@ -11,5 +11,6 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 pinia.use(piniaPluginPersistedstate);
 
 import router from './router';
+import axios from 'axios';
 
-createApp(App).use(pinia).use(router).mount('#app');
+createApp(App).use(pinia).use(router).use(axios).mount('#app');
