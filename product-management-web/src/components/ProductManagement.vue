@@ -28,7 +28,7 @@
           <el-button
             size="small"
             type="danger"
-            @click="deleteProduct(scope.row.id)"
+            @click="confirmDelete(scope.row.id)"
             >删除</el-button
           >
         </template>
@@ -48,9 +48,19 @@
         <el-form-item label="库存">
           <el-input v-model="form.stock" type="number"></el-input>
         </el-form-item>
-        <el-form-item label="图片">
-          <el-input v-model="form.cover"></el-input>
-        </el-form-item>
+
+        <el-upload
+          action="http://localhost:8080/api/products/upload"
+          list-type="picture-card"
+          :on-success="handleUploadSuccess"
+          :file-list="fileList"
+          :limit="1"
+          accept="image/*"
+        >
+          <el-icon>
+            <Plus />
+          </el-icon>
+        </el-upload>
       </el-form>
       <span slot="footer">
         <el-button @click="isDialogOpen = false">取消</el-button>
@@ -63,35 +73,90 @@
 import { ref, onMounted } from "vue";
 import { useProductStore } from "../stores/productStore";
 import type { Product } from "../api/productService";
+import { ElMessage, ElMessageBox } from "element-plus";
+import { Plus } from "@element-plus/icons-vue";
+
 const productStore = useProductStore();
+
 const { fetchProducts, createProduct, updateProduct, deleteProduct } =
   productStore;
+
 const products = ref<Product[]>([]);
+
 const isDialogOpen = ref(false);
+
+const fileList = ref([]);
+
 const form = ref<Product>({
-  name: "",
-  description: "",
-  price: 0,
-  stock: 0,
+  name: "测试商品",
+  description: "测试商品",
+  price: 100,
+  stock: 100,
   cover: "",
 });
+
+const handleUploadSuccess = (response: any) => {
+  if (response) {
+    ElMessage({
+      message: "上传成功",
+      type: "success",
+    });
+    form.value.cover = response;
+  } else {
+    ElMessage({
+      message: "上传失败",
+      type: "error",
+    });
+  }
+};
+
 const loadProducts = async () => {
   products.value = await fetchProducts();
 };
+
 const openCreateDialog = () => {
   form.value = { name: "", description: "", price: 0, stock: 0, cover: "" };
   isDialogOpen.value = true;
 };
+
 const openEditDialog = (product: Product) => {
   form.value = { ...product };
   isDialogOpen.value = true;
 };
+
+const confirmDelete = (id: number) => {
+  ElMessageBox.confirm("此操作将永久删除该商品, 是否继续?", "提示", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  })
+    .then(async () => {
+      await deleteProduct(id);
+      await loadProducts();
+    })
+    .catch(() => {
+      ElMessage({
+        type: "info",
+        message: "已取消删除",
+      });
+    });
+};
+
 const saveProduct = async () => {
+  alert(JSON.stringify(form.value));
   try {
     if (form.value.id) {
       await updateProduct(form.value.id, form.value);
+      ElMessage({
+        type: "success",
+        message: "修改成功",
+      });
     } else {
       await createProduct(form.value);
+      ElMessage({
+        type: "success",
+        message: "新增成功",
+      });
     }
     await loadProducts();
     // 刷新数据
@@ -101,6 +166,7 @@ const saveProduct = async () => {
     isDialogOpen.value = false;
   }
 };
+
 // ⻚⾯加载时获取商品数据
 onMounted(() => {
   loadProducts();
